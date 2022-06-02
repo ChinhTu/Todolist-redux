@@ -1,5 +1,31 @@
 .App {
   text-align: center;
+  font-family: "Bebas Neue", cursive;
+  font-family: "Lobster", cursive;
+  background-image: url("../public/wallpaperflare.com_wallpaper.jpg");
+  background-position: center;
+  height: 100vh;
+}
+
+h1 {
+  margin: 0px;
+  padding: 20px;
+}
+
+/* Glassmorphism card effect */
+.card {
+  backdrop-filter: blur(6px) saturate(171%);
+  -webkit-backdrop-filter: blur(6px) saturate(171%);
+  background-color: rgba(17, 25, 40, 0.22);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.App .css-1633um2-MuiPaper-root {
+  background-color: transparent;
+}
+.App .css-11xur9t-MuiPaper-root-MuiTableContainer-root {
+  background-color: transparent;
 }
 
 .App-logo {

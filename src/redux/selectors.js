@@ -3,14 +3,18 @@ import { createSelector } from "reselect";
 const taskList = (state) => state.task.list;
 const filterStatus = (state) => state.task.filter.status;
 const filterSearch = (state) => state.task.filter.search;
+const taskListLoading = (state) => state.task.taskListLoading;
 
 const taskListFilterStatus = createSelector(
   [taskList, filterStatus],
   (list, status) => {
     if (status === "all") {
+      console.log("all", list);
       return list;
     }
-    return list.filter((item) => item.status === status);
+    return list.filter((item) => {
+      return item.status === status;
+    });
   }
 );
 const taskListFilterSearch = createSelector(
@@ -30,5 +34,10 @@ const usedVariant = createSelector(
     };
   }
 );
+const loading = createSelector([taskListLoading], (loading) => {
+  return {
+    loading,
+  };
+});
 
-export { taskListFilterSearch, usedVariant };
+export { taskListFilterSearch, usedVariant, loading };

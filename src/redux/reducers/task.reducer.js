@@ -1,5 +1,4 @@
 import * as ACTIONS from "../actions/task.actions";
-import { v4 as uuidv4 } from "uuid";
 
 const initialState = {
   filter: {
@@ -9,42 +8,28 @@ const initialState = {
   renderCreateForm: true,
   renderForm: false,
   editJob: {},
-  list: [
-    {
-      id: uuidv4(),
-      name: "Task 1",
-      status: "activated",
-      date: "01/01/2022",
-    },
-    {
-      id: uuidv4(),
-      name: "Task 2",
-      status: "activated",
-      date: "01/01/2022",
-    },
-    {
-      id: uuidv4(),
-      name: "A",
-      status: "activated",
-      date: "01/01/2022",
-    },
-    {
-      id: uuidv4(),
-      name: "Task 4",
-      status: "hidden",
-      date: "01/01/2022",
-    },
-    {
-      id: uuidv4(),
-      name: "Task 5",
-      status: "hidden",
-      date: "01/01/2022",
-    },
-  ],
+  list: [],
+  taskListLoading: false,
 };
 const taskReducer = (state = initialState, action) => {
   let id;
   switch (action.type) {
+    case ACTIONS.Types.GET_TASK_LIST:
+      return {
+        state,
+        taskListLoading: true,
+      };
+    case ACTIONS.Types.GET_TASK_LIST_SUCCESS:
+      return {
+        ...state,
+        list: action.payload,
+        taskListLoading: false,
+      };
+    case ACTIONS.Types.GET_TASK_LIST_FAIL:
+      return {
+        ...state,
+        taskListLoading: false,
+      };
     case ACTIONS.Types.ADD_TASK:
       return {
         ...state,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -28,9 +28,14 @@ import {
   sortAction,
   filterStatusAction,
   switchCreateFormStatus,
+  getTaskListAction,
 } from "../../redux/actions/task.actions";
 import { createStructuredSelector } from "reselect";
-import { taskListFilterSearch, usedVariant } from "../../redux/selectors";
+import {
+  loading,
+  taskListFilterSearch,
+  usedVariant,
+} from "../../redux/selectors";
 
 interface DataArray {
   id: any;
@@ -53,8 +58,19 @@ interface State {
   task: Task;
 }
 
-const ActionAndTasklist: React.FC<any> = ({ filteredList, filter }) => {
+const ActionAndTasklist: React.FC<any> = ({
+  filteredList,
+  filter,
+  taskListLoading,
+}) => {
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getTaskListAction());
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // },[]);
+
+  //Old useSelector
   // const { filter, list } = useSelector((state: State): Task => {
   //   return state.task;
   // });
@@ -158,7 +174,7 @@ const ActionAndTasklist: React.FC<any> = ({ filteredList, filter }) => {
             <TableBody>
               {filteredList.map((row: any, i: number) => (
                 <TableRow
-                  key={row.name}
+                  key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                 >
                   <TableCell align="left">{i + 1}</TableCell>
@@ -208,5 +224,6 @@ const ActionAndTasklist: React.FC<any> = ({ filteredList, filter }) => {
 const StructSelector = createStructuredSelector({
   filteredList: taskListFilterSearch,
   filter: usedVariant,
+  taskListLoading: loading,
 });
 export default connect(StructSelector)(ActionAndTasklist);
